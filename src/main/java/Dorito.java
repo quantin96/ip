@@ -26,17 +26,25 @@ public class Dorito {
                     Task task = tasks[i];
                     System.out.println((i + 1) + "." + task);
                 }
-                System.out.println("");
+                System.out.println();
                 continue;
             }
             if (echo.startsWith("todo")) {
-                ToDo task = new ToDo(echo.substring(5));
-                tasks[taskNo] = task;
-                taskNo++;
-                System.out.println("\nGot it. I've added this task:  >.<");
-                System.out.println("  " + task);
-                System.out.println("Now you have " + taskNo + " tasks in the list.  >.<\n");
-                continue;
+                try {
+                    if (echo.length() < 6) {
+                        throw new DoritoException("Sorry! Please give a description for your task!  >.<");
+                    }
+                } catch (DoritoException e) {
+                    System.out.println("\n" + e.getMessage() + "\n");
+                    continue;
+                }
+                    ToDo task = new ToDo(echo.substring(5));
+                    tasks[taskNo] = task;
+                    taskNo++;
+                    System.out.println("\nGot it. I've added this task:  >.<");
+                    System.out.println("  " + task);
+                    System.out.println("Now you have " + taskNo + " tasks in the list.  >.<\n");
+                    continue;
             }
             if (echo.startsWith("deadline")) {
                 String sub = echo.substring(9);
@@ -77,6 +85,11 @@ public class Dorito {
                 System.out.println("\nOK! I've marked this task as not done:  0.0");
                 System.out.println("  " + task + "\n");
                 continue;
+            }
+            try {
+                throw new DoritoException("Sorry! I don't understand what you mean!  >.<");
+            } catch (DoritoException e) {
+                System.out.println("\n" + e.getMessage() + "\n");
             }
         }
     }
