@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Dorito {
@@ -8,7 +9,7 @@ public class Dorito {
                 + " \\     / \n"
                 + "  \\   /  \n"
                 + "   \\ /   \n";
-        Task[] tasks = new Task[100];
+        ArrayList<Task> tasks = new ArrayList<>();
         int taskNo = 0;
 
         System.out.println(logo + "\nHello! I'm Dorito  >.<\n"
@@ -23,7 +24,7 @@ public class Dorito {
             if (echo.equals("list")) {
                 System.out.println("\nHere are the tasks in your list:  0.0");
                 for (int i = 0; i < taskNo; i++) {
-                    Task task = tasks[i];
+                    Task task = tasks.get(i);
                     System.out.println((i + 1) + "." + task);
                 }
                 System.out.println();
@@ -39,7 +40,7 @@ public class Dorito {
                     continue;
                 }
                     ToDo task = new ToDo(echo.substring(5));
-                    tasks[taskNo] = task;
+                    tasks.add(task);
                     taskNo++;
                     System.out.println("\nGot it. I've added this task:  >.<");
                     System.out.println("  " + task);
@@ -51,7 +52,7 @@ public class Dorito {
                 String desc = sub.split(" /by ")[0];
                 String by = sub.split(" /by ")[1];
                 Deadline task = new Deadline(desc, by);
-                tasks[taskNo] = task;
+                tasks.add(task);
                 taskNo++;
                 System.out.println("\nGot it. I've added this task:  >.<");
                 System.out.println("  " + task);
@@ -65,7 +66,7 @@ public class Dorito {
                 String from = time.split( " /to ")[0];
                 String to = time.split( " /to ")[1];
                 Event task = new Event(desc, from, to);
-                tasks[taskNo] = task;
+                tasks.add(task);
                 taskNo++;
                 System.out.println("\nGot it. I've added this task:  >.<");
                 System.out.println("  " + task);
@@ -73,17 +74,26 @@ public class Dorito {
                 continue;
             }
             if (echo.startsWith("mark")) {
-                Task task = tasks[Integer.parseInt(echo.split(" ")[1]) - 1];
+                Task task = tasks.get(Integer.parseInt(echo.split(" ")[1]) - 1);
                 task.mark();
                 System.out.println("\nNice! I've marked this task as done:  >.<");
                 System.out.println("  " + task + "\n");
                 continue;
             }
             if (echo.startsWith("unmark")) {
-                Task task = tasks[Integer.parseInt(echo.split(" ")[1]) - 1];
+                Task task = tasks.get(Integer.parseInt(echo.split(" ")[1]) - 1);
                 task.unmark();
                 System.out.println("\nOK! I've marked this task as not done:  0.0");
                 System.out.println("  " + task + "\n");
+                continue;
+            }
+            if (echo.startsWith("delete")) {
+                Task task = tasks.get(Integer.parseInt(echo.split(" ")[1]) - 1);
+                tasks.remove(Integer.parseInt(echo.split(" ")[1]) - 1);
+                taskNo--;
+                System.out.println("\nOK! I've removed this task:  0.0");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + taskNo + " tasks in the list.  >.<\n");
                 continue;
             }
             try {
