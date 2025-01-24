@@ -12,40 +12,72 @@ public class Dorito {
         int taskNo = 0;
 
         System.out.println(logo + "\nHello! I'm Dorito  >.<\n"
-                + "What can I do for you?  0.0");
+                + "What can I do for you?  0.0\n");
         while (true) {
             String echo = sc.nextLine();
             if (echo.equals("bye")) {
-                System.out.println("Bye. Remember to stay hydrated!  >.<");
+                System.out.println("\nBye. Remember to stay hydrated!  >.<");
                 sc.close();
                 break;
             }
             if (echo.equals("list")) {
-                System.out.println("Here are the tasks in your list:  0.0");
+                System.out.println("\nHere are the tasks in your list:  0.0");
                 for (int i = 0; i < taskNo; i++) {
                     Task task = tasks[i];
-                    System.out.println((i + 1) + ".[" + task.getStatusIcon() + "] " + task);
+                    System.out.println((i + 1) + "." + task);
                 }
+                System.out.println("");
+                continue;
+            }
+            if (echo.startsWith("todo")) {
+                ToDo task = new ToDo(echo.substring(5));
+                tasks[taskNo] = task;
+                taskNo++;
+                System.out.println("\nGot it. I've added this task:  >.<");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + taskNo + " tasks in the list.  >.<\n");
+                continue;
+            }
+            if (echo.startsWith("deadline")) {
+                String sub = echo.substring(9);
+                String desc = sub.split(" /by ")[0];
+                String by = sub.split(" /by ")[1];
+                Deadline task = new Deadline(desc, by);
+                tasks[taskNo] = task;
+                taskNo++;
+                System.out.println("\nGot it. I've added this task:  >.<");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + taskNo + " tasks in the list.  >.<\n");
+                continue;
+            }
+            if (echo.startsWith("event")) {
+                String sub = echo.substring(6);
+                String desc = sub.split(" /from ")[0];
+                String time = sub.split(" /from ")[1];
+                String from = time.split( " /to ")[0];
+                String to = time.split( " /to ")[1];
+                Event task = new Event(desc, from, to);
+                tasks[taskNo] = task;
+                taskNo++;
+                System.out.println("\nGot it. I've added this task:  >.<");
+                System.out.println("  " + task);
+                System.out.println("Now you have " + taskNo + " tasks in the list.  >.<\n");
                 continue;
             }
             if (echo.startsWith("mark")) {
                 Task task = tasks[Integer.parseInt(echo.split(" ")[1]) - 1];
                 task.mark();
-                System.out.println("Nice! I've marked this task as done:  >.<");
-                System.out.println("[" + task.getStatusIcon() + "] " + task);
+                System.out.println("\nNice! I've marked this task as done:  >.<");
+                System.out.println("  " + task + "\n");
                 continue;
             }
             if (echo.startsWith("unmark")) {
                 Task task = tasks[Integer.parseInt(echo.split(" ")[1]) - 1];
                 task.unmark();
-                System.out.println("OK! I've marked this task as not done:  0.0");
-                System.out.println("[" + task.getStatusIcon() + "] " + task);
+                System.out.println("\nOK! I've marked this task as not done:  0.0");
+                System.out.println("  " + task + "\n");
                 continue;
             }
-            Task task = new Task(echo);
-            tasks[taskNo] = task;
-            taskNo++;
-            System.out.println("added: " + task + "  >.<");
         }
     }
 }
