@@ -3,6 +3,8 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Dorito {
 
@@ -23,6 +25,8 @@ public class Dorito {
             f.createNewFile();
         }
         Scanner sc = new Scanner(f);
+        DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         while (sc.hasNext()) {
             String s = sc.nextLine();
             Task task;
@@ -33,7 +37,8 @@ public class Dorito {
                 String desc = sub.split(" \\(by: ")[0];
                 String bytemp = sub.split(" \\(by: ")[1];
                 String by = bytemp.substring(0, bytemp.length() - 1);
-                task = new Deadline(desc, by);
+                System.out.println((by));
+                task = new Deadline(desc, LocalDate.parse(by, dateInput).format(dateOutput));
             } else {
                 String sub = s.substring(7);
                 String desc = sub.split(" \\(from: ")[0];
@@ -41,7 +46,8 @@ public class Dorito {
                 String from = time.split( " to: ")[0];
                 String totemp = time.split( " to: ")[1];
                 String to = totemp.substring(0, totemp.length() - 1);
-                task = new Event(desc, from, to);
+                task = new Event(desc, LocalDate.parse(from, dateInput).format(dateOutput),
+                        LocalDate.parse(to, dateInput).format(dateOutput));
             }
             if (s.charAt(4) == 'X') {
                 task.mark();
