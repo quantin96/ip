@@ -28,4 +28,21 @@ public class Ui {
         }
         System.out.println();
     }
+
+    /**
+     * Filters tasks that contain the key.
+     *
+     * @param tasks List of tasks.
+     * @param key Key to filter tasks.
+     */
+    public void find(ArrayList<Task> tasks, String key) {
+        System.out.println("\nHere are the relevant tasks:  0.0");
+        for (int i = 0; i < tasks.size(); i++) {
+            Task t = tasks.get(i);
+            if (t.description.contains(key)) {
+                System.out.println((i + 1) + "." + t);
+            }
+        }
+        System.out.println();
+    }
 }
