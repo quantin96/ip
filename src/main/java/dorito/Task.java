@@ -4,6 +4,11 @@ public class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Creates a Task that is unmarked with the given description.
+     *
+     * @param description Description of task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
