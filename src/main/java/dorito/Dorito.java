@@ -107,4 +107,8 @@ public class Dorito {
     public static void main(String[] args) throws IOException {
         new Dorito("./data/dorito.txt").run();
     }
+
+    public int size() {
+        return this.tasks.size();
+    }
 }
