@@ -12,10 +12,20 @@ public class Storage {
 
     protected String path;
 
+    /**
+     * Creates a new Storage.
+     *
+     * @param path Path of the file to store task info.
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Rewrites the file with an updates list of tasks.
+     *
+     * @param tasks The updated list of tasks.
+     */
     public void updateFile(ArrayList<Task> tasks) throws IOException {
         FileWriter fw = new FileWriter(path);
         StringBuilder newText = new StringBuilder();
@@ -27,6 +37,9 @@ public class Storage {
         fw.close();
     }
 
+    /**
+     * Loads the saved tasks from a file.
+     */
     public ArrayList<Task> loadFile() throws IOException {
         File f = new File(path);
         ArrayList<Task> tasks = new ArrayList<>();

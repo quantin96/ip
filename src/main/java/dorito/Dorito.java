@@ -10,12 +10,20 @@ public class Dorito {
     private ArrayList<Task> tasks;
     private Ui ui;
 
+    /**
+     * Creates a new Dorito chatbot
+     *
+     * @param path Path of the file to store task info.
+     */
     public Dorito(String path) throws IOException {
         this.storage = new Storage(path);
         this.ui = new Ui();
         this.tasks = storage.loadFile();
     }
 
+    /**
+     * Initializes the Dorito chatbot
+     */
     public void run() throws IOException {
         ui.start();
         Scanner sc = new Scanner(System.in);
@@ -108,6 +116,9 @@ public class Dorito {
         new Dorito("./data/dorito.txt").run();
     }
 
+    /**
+     * Returns the number of tasks.
+     */
     public int size() {
         return this.tasks.size();
     }
