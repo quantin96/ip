@@ -34,6 +34,8 @@ public class Dorito {
                 break;
             } else if (echo.equals("list")) {
                 ui.list(tasks);
+            } else if (echo.startsWith("find")) {
+                ui.find(tasks, echo.substring(5));
             } else {
                 if (echo.startsWith("todo")) {
                     try {
