@@ -1,6 +1,6 @@
 package dorito;
 
-public class ToDo extends Task{
+public class ToDo extends Task {
 
     /**
      * Creates a ToDo Task.
