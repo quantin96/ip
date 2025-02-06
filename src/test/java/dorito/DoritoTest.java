@@ -8,7 +8,7 @@ public class DoritoTest {
 
     @Test
     public void emptyListSize() throws IOException {
-        Dorito dorito = new Dorito("./data/doritotest.txt");
+        Dorito dorito = new Dorito();
         assertEquals(0, dorito.size());
     }
 }
