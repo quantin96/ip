@@ -12,11 +12,9 @@ public class Dorito {
 
     /**
      * Creates a new Dorito chatbot
-     *
-     * @param path Path of the file to store task info.
      */
-    public Dorito(String path) throws IOException {
-        this.storage = new Storage(path);
+    public Dorito() throws IOException {
+        this.storage = new Storage("./data/dorito.txt");
         this.ui = new Ui();
         this.tasks = storage.loadFile();
         this.parser = new Parser();
@@ -42,8 +40,15 @@ public class Dorito {
         ui.stop();
     }
 
+    /**
+     * Returns the welcome message.
+     */
+    public String start() {
+        return ui.start();
+    }
+
     public static void main(String[] args) throws IOException {
-        new Dorito("./data/dorito.txt").run();
+        new Dorito().run();
     }
 
     /**
@@ -51,5 +56,12 @@ public class Dorito {
      */
     public int size() {
         return this.tasks.size();
+    }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return parser.parse(input, storage, tasks, ui);
     }
 }
