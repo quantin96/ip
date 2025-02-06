@@ -59,7 +59,6 @@ public class Storage {
                 String desc = sub.split(" \\(by: ")[0];
                 String bytemp = sub.split(" \\(by: ")[1];
                 String by = bytemp.substring(0, bytemp.length() - 1);
-                System.out.println((by));
                 task = new Deadline(desc, LocalDate.parse(by, dateInput).format(dateOutput));
             } else {
                 String sub = s.substring(7);
