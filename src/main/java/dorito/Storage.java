@@ -46,6 +46,7 @@ public class Storage {
         if (!f.exists()) {
             f.createNewFile();
         }
+        assert f.exists() : "File does not exist";
         Scanner sc = new Scanner(f);
         DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
         DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
