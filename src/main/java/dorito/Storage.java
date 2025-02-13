@@ -48,35 +48,75 @@ public class Storage {
         }
         assert f.exists() : "File does not exist";
         Scanner sc = new Scanner(f);
-        DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
-        DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         while (sc.hasNext()) {
             String s = sc.nextLine();
             Task task;
             if (s.charAt(1) == 'T') {
-                task = new ToDo(s.substring(7));
+                task = loadToDo(s);
+                tasks.add(task);
             } else if (s.charAt(1) == 'D') {
-                String sub = s.substring(7);
-                String desc = sub.split(" \\(by: ")[0];
-                String bytemp = sub.split(" \\(by: ")[1];
-                String by = bytemp.substring(0, bytemp.length() - 1);
-                task = new Deadline(desc, LocalDate.parse(by, dateInput).format(dateOutput));
-            } else {
-                String sub = s.substring(7);
-                String desc = sub.split(" \\(from: ")[0];
-                String time = sub.split(" \\(from: ")[1];
-                String from = time.split( " to: ")[0];
-                String totemp = time.split( " to: ")[1];
-                String to = totemp.substring(0, totemp.length() - 1);
-                task = new Event(desc, LocalDate.parse(from, dateInput).format(dateOutput),
-                        LocalDate.parse(to, dateInput).format(dateOutput));
+                task = loadDeadline(s);
+                tasks.add(task);
+            } else if (s.charAt(1) == 'E') {
+                task = loadEvent(s);
+                tasks.add(task);
             }
-            if (s.charAt(4) == 'X') {
-                task.mark();
-            }
-            tasks.add(task);
         }
         sc.close();
         return tasks;
+    }
+
+    /**
+     * Loads ToDo task based on string from a file.
+     *
+     * @param s String representing ToDo task.
+     */
+    public ToDo loadToDo(String s) {
+        ToDo task = new ToDo(s.substring(7));
+        processMark(task, s);
+        return task;
+    }
+
+    /**
+     * Loads Deadline task based on string from a file.
+     *
+     * @param s String representing Deadline task.
+     */
+    public Deadline loadDeadline(String s) {
+        DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String sub = s.substring(7);
+        String desc = sub.split(" \\(by: ")[0];
+        String bytemp = sub.split(" \\(by: ")[1];
+        String by = bytemp.substring(0, bytemp.length() - 1);
+        Deadline task = new Deadline(desc, LocalDate.parse(by, dateInput).format(dateOutput));
+        processMark(task, s);
+        return task;
+    }
+
+    /**
+     * Loads Event task based on string from a file.
+     *
+     * @param s String representing Event task.
+     */
+    public Event loadEvent(String s) {
+        DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
+        DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String sub = s.substring(7);
+        String desc = sub.split(" \\(from: ")[0];
+        String time = sub.split(" \\(from: ")[1];
+        String from = time.split( " to: ")[0];
+        String totemp = time.split( " to: ")[1];
+        String to = totemp.substring(0, totemp.length() - 1);
+        Event task = new Event(desc,LocalDate.parse(from, dateInput).format(dateOutput),
+                LocalDate.parse(to, dateInput).format(dateOutput));
+        processMark(task, s);
+        return task;
+    }
+
+    public void processMark(Task task, String s) {
+        if (s.charAt(4) == 'X') {
+            task.mark();
+        }
     }
 }

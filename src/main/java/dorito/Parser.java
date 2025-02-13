@@ -1,5 +1,6 @@
 package dorito;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Parser {
@@ -41,30 +42,13 @@ public class Parser {
                 } catch (DoritoException e) {
                     return "\n" + e.getMessage() + "\n";
                 }
-                ToDo todo = new ToDo(input.substring(5));
-                tasks.add(todo);
-                storage.updateFile(tasks);
-                output = ui.add(todo, tasks.size());
+                output = processToDo(input, tasks, storage, ui);
                 break;
             case DEADLINE:
-                String deadlineSub = input.substring(9);
-                String deadlineDesc = deadlineSub.split(" /by ")[0];
-                String by = deadlineSub.split(" /by ")[1];
-                Deadline deadline = new Deadline(deadlineDesc, by);
-                tasks.add(deadline);
-                storage.updateFile(tasks);
-                output = ui.add(deadline, tasks.size());
+                output = processDeadline(input, tasks, storage, ui);
                 break;
             case EVENT:
-                String eventSub = input.substring(6);
-                String eventDesc = eventSub.split(" /from ")[0];
-                String time = eventSub.split(" /from ")[1];
-                String from = time.split( " /to ")[0];
-                String to = time.split( " /to ")[1];
-                Event event = new Event(eventDesc, from, to);
-                tasks.add(event);
-                storage.updateFile(tasks);
-                output = ui.add(event, tasks.size());
+                output = processEvent(input, tasks, storage, ui);
                 break;
             case MARK:
                 Task mark = tasks.get(Integer.parseInt(input.split(" ")[1]) - 1);
@@ -84,10 +68,65 @@ public class Parser {
                 storage.updateFile(tasks);
                 output = ui.delete(delete, tasks.size());
                 break;
+            default:
+                ui.sorry();
             }
         } catch (Exception e) {
-            return "\nSorry! I don't understand what you mean!  >.<\n";
+            ui.sorry();
         }
         return output;
+    }
+
+    /**
+     * Processes ToDo tasks for parser.
+     *
+     * @param input The input command.
+     * @param storage The storage path.
+     * @param tasks The list of tasks.
+     * @param ui The UI to obtain Dorito's output.
+     */
+    public String processToDo (String input, ArrayList<Task> tasks, Storage storage, Ui ui) throws IOException {
+        ToDo todo = new ToDo(input.substring(5));
+        tasks.add(todo);
+        storage.updateFile(tasks);
+        return ui.add(todo, tasks.size());
+    }
+
+    /**
+     * Processes Deadline tasks for parser.
+     *
+     * @param input The input command.
+     * @param storage The storage path.
+     * @param tasks The list of tasks.
+     * @param ui The UI to obtain Dorito's output.
+     */
+    public String processDeadline (String input, ArrayList<Task> tasks, Storage storage, Ui ui) throws IOException {
+        String deadlineSub = input.substring(9);
+        String deadlineDesc = deadlineSub.split(" /by ")[0];
+        String by = deadlineSub.split(" /by ")[1];
+        Deadline deadline = new Deadline(deadlineDesc, by);
+        tasks.add(deadline);
+        storage.updateFile(tasks);
+        return ui.add(deadline, tasks.size());
+    }
+
+    /**
+     * Processes Event tasks for parser.
+     *
+     * @param input The input command.
+     * @param storage The storage path.
+     * @param tasks The list of tasks.
+     * @param ui The UI to obtain Dorito's output.
+     */
+    public String processEvent (String input, ArrayList<Task> tasks, Storage storage, Ui ui) throws IOException {
+        String eventSub = input.substring(6);
+        String eventDesc = eventSub.split(" /from ")[0];
+        String time = eventSub.split(" /from ")[1];
+        String from = time.split( " /to ")[0];
+        String to = time.split( " /to ")[1];
+        Event event = new Event(eventDesc, from, to);
+        tasks.add(event);
+        storage.updateFile(tasks);
+        return ui.add(event, tasks.size());
     }
 }
