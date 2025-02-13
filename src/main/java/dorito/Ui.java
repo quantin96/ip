@@ -59,6 +59,7 @@ public class Ui {
      * @param tasks The current task list.
      */
     public String list(ArrayList<Task> tasks) {
+        assert tasks.size() >= 0 : "Cannot have negative tasks";
         String output  = "\nHere are the tasks in your list:  0.0\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);
@@ -74,6 +75,7 @@ public class Ui {
      * @param key Key to filter tasks.
      */
     public String find(ArrayList<Task> tasks, String key) {
+        assert tasks.size() >= 0 : "Cannot have negative tasks";
         String output = "\nHere are the relevant tasks:  0.0\n";
         for (int i = 0; i < tasks.size(); i++) {
             Task t = tasks.get(i);

@@ -20,6 +20,7 @@ public class Parser {
      * @param ui The UI to obtain Dorito's output.
      */
     public String parse(String input, Storage storage, ArrayList<Task> tasks, Ui ui) {
+        assert tasks.size() >= 0 : "Cannot have negative tasks";
         String output = "";
         try {
             Commands command = Commands.valueOf(input.split(" ")[0].toUpperCase());
