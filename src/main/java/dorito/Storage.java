@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
+import dorito.Task.Priority;
 
 public class Storage {
 
@@ -72,8 +73,9 @@ public class Storage {
      * @param s String representing ToDo task.
      */
     public ToDo loadToDo(String s) {
-        ToDo task = new ToDo(s.substring(7));
+        ToDo task = new ToDo(s.substring(10));
         processMark(task, s);
+        processPriority(task, s);
         return task;
     }
 
@@ -85,12 +87,13 @@ public class Storage {
     public Deadline loadDeadline(String s) {
         DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
         DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String sub = s.substring(7);
+        String sub = s.substring(10);
         String desc = sub.split(" \\(by: ")[0];
         String bytemp = sub.split(" \\(by: ")[1];
         String by = bytemp.substring(0, bytemp.length() - 1);
         Deadline task = new Deadline(desc, LocalDate.parse(by, dateInput).format(dateOutput));
         processMark(task, s);
+        processPriority(task, s);
         return task;
     }
 
@@ -102,7 +105,7 @@ public class Storage {
     public Event loadEvent(String s) {
         DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
         DateTimeFormatter dateOutput = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String sub = s.substring(7);
+        String sub = s.substring(10);
         String desc = sub.split(" \\(from: ")[0];
         String time = sub.split(" \\(from: ")[1];
         String from = time.split( " to: ")[0];
@@ -111,12 +114,42 @@ public class Storage {
         Event task = new Event(desc,LocalDate.parse(from, dateInput).format(dateOutput),
                 LocalDate.parse(to, dateInput).format(dateOutput));
         processMark(task, s);
+        processPriority(task, s);
         return task;
     }
 
+    /**
+     * Marks tasks during loading.
+     *
+     * @param task Task to be marked.
+     * @param s String representing the task.
+     */
     public void processMark(Task task, String s) {
         if (s.charAt(4) == 'X') {
             task.mark();
+        }
+    }
+
+    /**
+     * Sets task priority during loading.
+     *
+     * @param task Task to set priority.
+     * @param s String representing the task.
+     */
+    public void processPriority(Task task, String s) {
+        switch (s.charAt(7)) {
+        case 'H' :
+            task.setPriority(Priority.HIGH);
+            break;
+        case 'M':
+            task.setPriority(Priority.MEDIUM);
+            break;
+        case 'L':
+            task.setPriority(Priority.LOW);
+            break;
+        default:
+            task.setPriority(Priority.DEFAULT);
+            break;
         }
     }
 }
