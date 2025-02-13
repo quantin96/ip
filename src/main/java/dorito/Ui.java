@@ -123,4 +123,8 @@ public class Ui {
         return "\nOK! I've removed this task:  0.0\n" + "  " + task
                 + "\nNow you have " + i + " tasks in the list.  >.<\n";
     }
+
+    public String sorry() {
+        return "\nSorry! I don't understand what you mean!  >.<\n";
+    }
 }
