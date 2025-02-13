@@ -2,13 +2,14 @@ package dorito;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import dorito.Task.Priority;
 
 public class Parser {
 
     public Parser() {}
 
     public enum Commands {
-        BYE, LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE
+        BYE, LIST, FIND, TODO, DEADLINE, EVENT, MARK, UNMARK, DELETE, PRIORITY
     }
 
     /**
@@ -68,11 +69,15 @@ public class Parser {
                 storage.updateFile(tasks);
                 output = ui.delete(delete, tasks.size());
                 break;
+            case PRIORITY:
+                output = processPriority(input, tasks, storage, ui);
+                break;
             default:
-                ui.sorry();
+                output = ui.sorry();
+                break;
             }
         } catch (Exception e) {
-            ui.sorry();
+            return ui.sorry();
         }
         return output;
     }
@@ -128,5 +133,21 @@ public class Parser {
         tasks.add(event);
         storage.updateFile(tasks);
         return ui.add(event, tasks.size());
+    }
+
+    /**
+     * Processes priority for a task.
+     *
+     * @param input The input command.
+     * @param storage The storage path.
+     * @param tasks The list of tasks.
+     * @param ui The UI to obtain Dorito's output.
+     */
+    public String processPriority (String input, ArrayList<Task> tasks, Storage storage, Ui ui) throws IOException {
+        Task task = tasks.get(Integer.parseInt(input.split(" ")[1]) - 1);
+        Priority p = Priority.valueOf(input.split(" ")[2].toUpperCase());
+        task.setPriority(p);
+        storage.updateFile(tasks);
+        return ui.priority(task, p);
     }
 }

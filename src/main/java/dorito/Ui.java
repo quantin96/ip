@@ -2,6 +2,7 @@ package dorito;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import dorito.Task.Priority;
 
 public class Ui {
     protected boolean exit = false;
@@ -126,6 +127,19 @@ public class Ui {
                 + "\nNow you have " + i + " tasks in the list.  >.<\n";
     }
 
+    /**
+     * Returns a message after setting priority of a task.
+     *
+     * @param task The task to set priority.
+     * @param p The priority of the task.
+     */
+    public String priority(Task task, Priority p) {
+        return "\nOK! I've marked this task as " + p + " priority 0.0\n";
+    }
+
+    /**
+     * Default message when Dorito does not understand the input.
+     */
     public String sorry() {
         return "\nSorry! I don't understand what you mean!  >.<\n";
     }
