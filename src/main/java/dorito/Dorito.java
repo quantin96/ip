@@ -3,6 +3,9 @@ package dorito;
 import java.util.ArrayList;
 import java.io.IOException;
 
+/**
+ * Represents Dorito object.
+ */
 public class Dorito {
 
     private Storage storage;
@@ -12,9 +15,11 @@ public class Dorito {
 
     /**
      * Creates a new Dorito chatbot
+     *
+     * @param path Path to store tasks file.
      */
-    public Dorito() throws IOException {
-        this.storage = new Storage("./data/dorito.txt");
+    public Dorito(String path) throws IOException {
+        this.storage = new Storage(path);
         this.ui = new Ui();
         this.tasks = storage.loadFile();
         this.parser = new Parser();
@@ -30,7 +35,7 @@ public class Dorito {
                 String input = ui.get();
                 String output = parser.parse(input, storage, tasks, ui);
                 System.out.println(output);
-                if (ui.isExit()) {
+                if (ui.shouldExit()) {
                     break;
                 }
             } catch (Exception e) {
@@ -42,17 +47,21 @@ public class Dorito {
 
     /**
      * Returns the welcome message.
+     *
+     * @return Dorito's welcome message
      */
     public String start() {
         return ui.start();
     }
 
     public static void main(String[] args) throws IOException {
-        new Dorito().run();
+        new Dorito("./data/dorito.txt").run();
     }
 
     /**
      * Returns the number of tasks.
+     *
+     * @return Number of tasks in the task list.
      */
     public int size() {
         return this.tasks.size();
@@ -60,6 +69,9 @@ public class Dorito {
 
     /**
      * Generates a response for the user's chat message.
+     *
+     * @param input User input.
+     * @return Dorito's response.
      */
     public String getResponse(String input) {
         return parser.parse(input, storage, tasks, ui);

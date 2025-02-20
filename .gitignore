@@ -17,3 +17,4 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 data/dorito.txt
 data/doritotest.txt
+data/doritoempty.txt

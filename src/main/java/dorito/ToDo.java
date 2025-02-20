@@ -1,5 +1,8 @@
 package dorito;
 
+/**
+ * Represents ToDo object.
+ */
 public class ToDo extends Task {
 
     /**

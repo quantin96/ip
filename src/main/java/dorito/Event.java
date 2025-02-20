@@ -3,6 +3,9 @@ package dorito;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Event object.
+ */
 public class Event extends Task {
 
     protected LocalDate from;

@@ -1,10 +1,16 @@
 package dorito;
 
+/**
+ * Represents Task object.
+ */
 public class Task {
     protected String description;
     protected boolean isDone;
     protected Priority priority;
 
+    /**
+     * Represents the values that Priority can have.
+     */
     public enum Priority {
         HIGH, MEDIUM, LOW, DEFAULT;
     }
@@ -20,10 +26,20 @@ public class Task {
         this.priority = Priority.DEFAULT;
     }
 
+    /**
+     * Returns a string indicating whether a task is completed.
+     *
+     * @return "X" if done, " " otherwise.
+     */
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Returns a string indicating the priority of the task.
+     *
+     * @return "H" if high, "M" if medium, "L" if low, " " if default.
+     */
     public String getPriorityIcon() {
         String p;
         switch (this.priority) {
@@ -43,14 +59,25 @@ public class Task {
         return p;
     }
 
+    /**
+     * Marks a task as done.
+     */
     public void mark() {
         this.isDone = true;
     }
 
+    /**
+     * Marks a task as undone.
+     */
     public void unmark() {
         this.isDone = false;
     }
 
+    /**
+     * Sets the priority of the task.
+     *
+     * @param p Priority of the task.
+     */
     public void setPriority(Priority p) {
         this.priority = p;
     }

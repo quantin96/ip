@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Dorito dorito = new Dorito();
+    private Dorito dorito = new Dorito("./data/dorito.txt");
 
     public Main() throws IOException {}
 

@@ -3,6 +3,9 @@ package dorito;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents Deadline object.
+ */
 public class Deadline extends Task {
 
     protected LocalDate by;

@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import dorito.Task.Priority;
 
+/**
+ * Represents Ui object.
+ */
 public class Ui {
-    protected boolean exit = false;
+    protected boolean isExit = false;
     protected Scanner sc;
     protected String logo = "_________\n"
             + "\\       /\n"
@@ -13,19 +16,26 @@ public class Ui {
             + "  \\   /  \n"
             + "   \\ /   \n";
 
+    /**
+     * Creates a new Ui object.
+     */
     public Ui() {
         this.sc = new Scanner(System.in);
     }
 
     /**
      * Checks if the program has exited.
+     *
+     * @return A boolean indicating if program has exited.
      */
-    public boolean isExit() {
-        return exit;
+    public boolean shouldExit() {
+        return isExit;
     }
 
     /**
      * Returns the next command.
+     *
+     * @return The next user input line.
      */
     public String get() {
         return sc.nextLine();
@@ -40,6 +50,8 @@ public class Ui {
 
     /**
      * Returns a hello message.
+     *
+     * @return String containing Dorito's welcome message.
      */
     public String start() {
         return logo + "\nHello! I'm Dorito  >.<\n"
@@ -48,9 +60,11 @@ public class Ui {
 
     /**
      * Returns an exit message.
+     *
+     * @return String containing Dorito's exit message.
      */
     public String bye(){
-        exit = true;
+        isExit = true;
         return "\nBye. Remember to stay hydrated!  >.<";
     }
 
@@ -58,6 +72,7 @@ public class Ui {
      * Lists out all current tasks.
      *
      * @param tasks The current task list.
+     * @return The current list of tasks in the task list.
      */
     public String list(ArrayList<Task> tasks) {
         assert tasks.size() >= 0 : "Cannot have negative tasks";
@@ -74,6 +89,7 @@ public class Ui {
      *
      * @param tasks List of tasks.
      * @param key Key to filter tasks.
+     * @return A list of filtered tasks containing the key in the task description.
      */
     public String find(ArrayList<Task> tasks, String key) {
         assert tasks.size() >= 0 : "Cannot have negative tasks";
@@ -92,6 +108,7 @@ public class Ui {
      *
      * @param task The task to be added.
      * @param i Number of tasks in task list.
+     * @return String indicating that the task has been added.
      */
     public String add(Task task, int i) {
         return "\nGot it. I've added this task:  >.<\n" + "  " + task
@@ -102,6 +119,7 @@ public class Ui {
      * Returns a message after marking a task.
      *
      * @param task The task to be marked.
+     * @return String indicating that the task has been marked.
      */
     public String mark(Task task) {
         return "\nNice! I've marked this task as done:  >.<\n" + "  " + task + "\n";
@@ -111,6 +129,7 @@ public class Ui {
      * Returns a message after unmarking a task.
      *
      * @param task The task to be unmarked.
+     * @return String indicating that the task has been unmarked.
      */
     public String unmark(Task task) {
         return "\nOK! I've marked this task as not done:  0.0\n" + "  " + task + "\n";
@@ -121,6 +140,7 @@ public class Ui {
      *
      * @param task The task to be deleted.
      * @param i Number of tasks remaining in task list.
+     * @return String indicating that the task has been deleted.
      */
     public String delete(Task task, int i) {
         return "\nOK! I've removed this task:  0.0\n" + "  " + task
@@ -132,13 +152,16 @@ public class Ui {
      *
      * @param task The task to set priority.
      * @param p The priority of the task.
+     * @return String indicating that the task priority has been set.
      */
     public String priority(Task task, Priority p) {
         return "\nOK! I've marked this task as " + p + " priority 0.0\n";
     }
 
     /**
-     * Default message when Dorito does not understand the input.
+     * Returns a default message when Dorito does not understand the input.
+     *
+     * @return String indicating that Dorito encountered a user input error.
      */
     public String sorry() {
         return "\nSorry! I don't understand what you mean!  >.<\n";

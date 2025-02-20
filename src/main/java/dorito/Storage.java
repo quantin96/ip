@@ -9,12 +9,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import dorito.Task.Priority;
 
+/**
+ * Represents Storage object.
+ */
 public class Storage {
 
     protected String path;
 
     /**
-     * Creates a new Storage.
+     * Creates a new Storage object.
      *
      * @param path Path of the file to store task info.
      */
@@ -40,6 +43,8 @@ public class Storage {
 
     /**
      * Loads the saved tasks from a file.
+     *
+     * @return An array list of Tasks loaded from the save file.
      */
     public ArrayList<Task> loadFile() throws IOException {
         File f = new File(path);
@@ -71,6 +76,7 @@ public class Storage {
      * Loads ToDo task based on string from a file.
      *
      * @param s String representing ToDo task.
+     * @return ToDo task based on String s.
      */
     public ToDo loadToDo(String s) {
         ToDo task = new ToDo(s.substring(10));
@@ -83,6 +89,7 @@ public class Storage {
      * Loads Deadline task based on string from a file.
      *
      * @param s String representing Deadline task.
+     * @return Deadline task based on String s.
      */
     public Deadline loadDeadline(String s) {
         DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
@@ -101,6 +108,7 @@ public class Storage {
      * Loads Event task based on string from a file.
      *
      * @param s String representing Event task.
+     * @return Event task based on String s.
      */
     public Event loadEvent(String s) {
         DateTimeFormatter dateInput = DateTimeFormatter.ofPattern("MMM dd yyyy");
