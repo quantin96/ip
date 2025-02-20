@@ -148,6 +148,9 @@ public class Parser {
             String time = eventSub.split(" /from ")[1];
             String from = time.split( " /to ")[0];
             String to = time.split( " /to ")[1];
+            if (from.compareTo(to) > 0) {
+                return ui.eventError();
+            }
             Event event = new Event(eventDesc, from, to);
             tasks.add(event);
             storage.updateFile(tasks);
