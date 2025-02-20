@@ -49,6 +49,9 @@ public class Storage {
     public ArrayList<Task> loadFile() throws IOException {
         File f = new File(path);
         ArrayList<Task> tasks = new ArrayList<>();
+        if (!f.getParentFile().exists()) {
+            f.getParentFile().mkdirs();
+        }
         if (!f.exists()) {
             f.createNewFile();
         }
