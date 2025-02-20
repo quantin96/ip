@@ -23,6 +23,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("Dorito");
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDorito(dorito);  // inject the Dorito instance
             stage.show();
