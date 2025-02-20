@@ -166,4 +166,93 @@ public class Ui {
     public String sorry() {
         return "\nSorry! I don't understand what you mean!  >.<\n";
     }
+
+    /**
+     * Returns an error message when Dorito encounters a find error.
+     *
+     * @return String indicating that Dorito encountered a find error.
+     */
+    public String findError() {
+        String message = "Sorry! Please specify a key to find tasks!  >.<";
+        String format = "find <key>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters a todo error.
+     *
+     * @return String indicating that Dorito encountered a todo error.
+     */
+    public String toDoError() {
+        String message = "Sorry! ToDo tasks must follow this format!  >.<";
+        String format = "todo <task>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters a deadline error.
+     *
+     * @return String indicating that Dorito encountered a deadline error.
+     */
+    public String deadlineError() {
+        String message = "Sorry! Deadline tasks must follow this format!  >.<";
+        String format = "deadline <task> /by <YYYY-MM-DD>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters an event error.
+     *
+     * @return String indicating that Dorito encountered an event error.
+     */
+    public String eventError() {
+        String message = "Sorry! Event tasks must follow this format!  >.<";
+        String format = "event <task> /from <YYYY-MM-DD> /to <YYYY-MM-DD>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters a mark error.
+     *
+     * @return String indicating that Dorito encountered a mark error.
+     */
+    public String markError() {
+        String message = "Sorry! Please specify a task number to mark!  >.<";
+        String format = "mark <task number>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters an unmark error.
+     *
+     * @return String indicating that Dorito encountered an unmark error.
+     */
+    public String unmarkError() {
+        String message = "Sorry! Please specify a task number to unmark!  >.<";
+        String format = "unmark <task number>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters a delete error.
+     *
+     * @return String indicating that Dorito encountered a delete error.
+     */
+    public String deleteError() {
+        String message = "Sorry! Please specify a task number to delete!  >.<";
+        String format = "delete <task number>";
+        return "\n" + message + "\n" + format + "\n";
+    }
+
+    /**
+     * Returns an error message when Dorito encounters a priority error.
+     *
+     * @return String indicating that Dorito encountered a priority error.
+     */
+    public String priorityError() {
+        String message = "Sorry! Prioritizing tasks must follow this format!  >.<";
+        String format = "priority <task number> <priority>";
+        String values = "Priority can only be (high, medium, low, default)";
+        return "\n" + message + "\n" + format + "\n" + values + "\n";
+    }
 }

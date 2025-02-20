@@ -85,9 +85,7 @@ public class Parser {
         try {
             return ui.find(tasks, input.split(" ")[1]);
         } catch (Exception e) {
-            String message = "Sorry! Please specify a key to find tasks!  >.<";
-            String format = "find <key>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.findError();
         }
     }
 
@@ -107,9 +105,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.add(todo, tasks.size());
         } catch (Exception e) {
-            String message = "Sorry! ToDo tasks must follow this format!  >.<";
-            String format = "todo <task>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.toDoError();
         }
     }
 
@@ -132,9 +128,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.add(deadline, tasks.size());
         } catch (Exception e) {
-            String message = "Sorry! Deadline tasks must follow this format!  >.<";
-            String format = "deadline <task> /by <YYYY-MM-DD>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.deadlineError();
         }
     }
 
@@ -159,9 +153,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.add(event, tasks.size());
         } catch (Exception e) {
-            String message = "Sorry! Event tasks must follow this format!  >.<";
-            String format = "event <task> /from <YYYY-MM-DD> /to <YYYY-MM-DD>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.eventError();
         }
     }
 
@@ -181,9 +173,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.mark(mark);
         } catch (Exception e) {
-            String message = "Sorry! Please specify a task number to mark!  >.<";
-            String format = "mark <task number>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.markError();
         }
     }
 
@@ -203,9 +193,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.unmark(unmark);
         } catch (Exception e) {
-            String message = "Sorry! Please specify a task number to unmark!  >.<";
-            String format = "unmark <task number>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.unmarkError();
         }
     }
 
@@ -225,9 +213,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.delete(delete, tasks.size());
         } catch (Exception e) {
-            String message = "Sorry! Please specify a task number to delete!  >.<";
-            String format = "delete <task number>";
-            return "\n" + message + "\n" + format + "\n";
+            return ui.deleteError();
         }
     }
 
@@ -248,10 +234,7 @@ public class Parser {
             storage.updateFile(tasks);
             return ui.priority(task, p);
         } catch (Exception e) {
-            String message = "Sorry! Prioritizing tasks must follow this format!  >.<";
-            String format = "priority <task number> <priority>";
-            String values = "Priority can only be (high, medium, low, default)";
-            return "\n" + message + "\n" + format + "\n" + values + "\n";
+            return ui.priorityError();
         }
     }
 }
